@@ -1,0 +1,205 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+#app {
+    height: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #eff0f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #b3b8c0;
+    border-radius: 100vh;
+    border: 2px solid #e5e7eb;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #9ea2ad;
+}
+
+/**
+ * Global
+ */
+.card {
+    @apply rounded border-2 border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-700 dark:text-white;
+}
+
+.card-hover {
+    @apply hover:bg-zinc-50 dark:hover:bg-zinc-900 text-zinc-700 dark:text-white;
+}
+
+/**
+ * Button
+ */
+.btn {
+    @apply inline-flex items-center justify-center px-3 py-2 focus:outline-none transition ease-in-out duration-150 rounded font-medium text-sm;
+}
+
+.btn.btn-sm {
+    @apply px-2 py-1 text-sm;
+}
+
+.btn.btn-xs {
+    @apply px-2 py-1 text-xs;
+}
+
+.btn-primary {
+    @apply border border-transparent font-semibold bg-violet-600 text-white hover:bg-violet-700 focus:bg-violet-700 active:bg-violet-700
+}
+
+.btn-secondary {
+    @apply bg-white dark:bg-transparent border border-gray-200 dark:border-gray-700 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 focus:bg-gray-100 dark:focus:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-800
+}
+
+.btn-danger {
+    @apply border border-transparent bg-red-500 text-white hover:bg-red-400 focus:bg-red-400 active:bg-red-400
+}
+
+.btn-danger-outline {
+    @apply border border-transparent bg-red-50 text-red-500 hover:bg-red-100 focus:bg-red-100 active:bg-red-100
+}
+
+.btn-black {
+    @apply border border-transparent bg-black dark:bg-gray-200 text-white dark:text-gray-800 hover:bg-gray-800 dark:hover:bg-white focus:bg-gray-800 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300
+}
+
+
+
+/**
+ * Heading
+ */
+
+.page-title {
+    @apply text-xl font-semibold text-black dark:text-gray-300 capitalize;
+}
+
+.page-description {
+    @apply mt-1 text-sm text-gray-400 dark:text-gray-200;
+}
+
+.font-13 {
+    @apply text-[13px];
+}
+
+
+/**
+ * Table
+ */
+.table-wrapper {
+    @apply overflow-hidden border-b border-gray-100 dark:border-gray-700;
+}
+
+.table {
+    @apply min-w-full divide-y divide-gray-100 dark:divide-gray-700;
+}
+
+.table-thead {
+    @apply bg-gray-50 dark:bg-gray-800;
+}
+
+.table-th {
+    @apply py-2 px-3 sm:pl-6 text-left text-sm font-semibold text-gray-900 dark:text-gray-100;
+}
+
+.table-tbody {
+    @apply divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-800;
+}
+
+.table-tr {
+    @apply cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800;
+}
+
+.table-td {
+    @apply whitespace-nowrap text-sm py-2 px-3 sm:px-6 text-black dark:text-gray-300;
+}
+
+/**
+ * Button
+ */
+.header-action-btn-back {
+    @apply -ml-3 inline-flex items-center font-medium space-x-1 mb-2 text-black dark:text-white hover:bg-white dark:hover:bg-gray-800 px-2.5 py-1.5;
+}
+
+
+/**
+ * Form
+ */
+.kbd-search {
+    @apply inline-flex items-center rounded border border-gray-200 dark:border-gray-700 px-2.5 font-sans text-sm font-medium text-gray-400 dark:text-gray-500;
+}
+
+.label {
+    @apply block font-medium text-sm text-black dark:text-gray-300 mb-1;
+}
+
+.badge {
+    @apply inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium
+}
+
+.badge-green {
+    @apply bg-green-100 text-green-800
+}
+
+.badge-red {
+    @apply bg-red-100 text-red-800
+}
+
+.badge-gray {
+    @apply bg-gray-100 text-gray-800
+}
+
+/**
+ * Tooltip
+ */
+.v-popper__inner {
+    font-size: 12px !important;
+    padding: 3px 6px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1) !important;
+    background-color: #000000 !important;
+    opacity: 1 !important;
+}
+
+.v-popper__arrow-outer {
+    visibility: hidden;
+}
+
+.v-popper__arrow-inner {
+    visibility: hidden;
+}
+
+/**
+ * Color Picker
+ */
+.vc-input-toggle {
+    display: none !important;
+}
+
+.vc-color-wrap {
+    border-radius: 3px !important;
+    width: 26px !important;
+    height: 26px !important;
+    margin-right: 8px !important;
+}
+
+
+/**
+* Tiptap
+*/
+p:empty:after {
+    content: "\00A0";
+}

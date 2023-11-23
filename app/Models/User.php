@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +22,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'biography',
+        'photo',
+        'twitter',
+        'github',
+        'linkedin',
     ];
 
     /**
@@ -42,4 +51,23 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'photo_url',
+    ];
+
+    public function getPhotoUrlAttribute()
+    {
+        return $this->photo ? Storage::url($this->photo) : 'https://ui-avatars.com/api/?length=1&name=' . urlencode($this->name) . '&color=FFFFFF&background=27272a';
+    }
+
+    public function tools()
+    {
+        return $this->hasMany(Tool::class);
+    }
 }
