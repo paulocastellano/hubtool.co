@@ -1,8 +1,8 @@
 <script setup>
-import Layout from "@/Layouts/Master.vue";
+import Layout from "@/Layouts/Auth.vue";
 import InputError from "@/Components/InputError.vue";
 import Label from "@/Components/Label.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Button from "@/Components/Button.vue";
 import Input from "@/Components/Input.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
@@ -42,13 +42,13 @@ const submit = () => {
             </div>
 
             <div class="flex justify-end mt-4">
-                <PrimaryButton
-                    class="ms-4"
+                <Button
+                    class="btn-primary w-full"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Confirm
-                </PrimaryButton>
+                </Button>
             </div>
         </form>
     </Layout>

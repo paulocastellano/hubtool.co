@@ -7,7 +7,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 use App\Models\Tool;
-use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -23,11 +22,8 @@ class HomeController extends Controller
                 return \Carbon\Carbon::parse($tool->published_at)->format('d-m-Y');
             });
 
-        $featuredCategories = Category::where('is_featured', true)->orderBy('name', 'asc')->get();
-
         return Inertia::render('Home', [
             'tools' => $tools,
-            'featuredCategories' => $featuredCategories
         ]);
     }
 }

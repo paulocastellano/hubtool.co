@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
-import Layout from "@/Layouts/Master.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Layout from "@/Layouts/Auth.vue";
+import Button from "@/Components/Button.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -40,19 +40,22 @@ const verificationLinkSent = computed(
         </div>
 
         <form @submit.prevent="submit">
-            <div class="mt-4 flex items-center justify-between">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
+            <div class="mt-4 flex flex-col gap-4">
+                <Button
+                    :class="{
+                        'btn-primary w-full': true,
+                        'opacity-25': form.processing,
+                    }"
                     :disabled="form.processing"
                 >
                     Resend Verification Email
-                </PrimaryButton>
+                </Button>
 
                 <Link
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="hover:underline text-xs text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >Log Out</Link
                 >
             </div>

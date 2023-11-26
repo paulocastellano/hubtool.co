@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
+use App\Models\Category;
+
 class HandleInertiaRequests extends Middleware
 {
     /**
@@ -39,10 +41,15 @@ class HandleInertiaRequests extends Middleware
                     }
 
                     return array_merge($request->user()->toArray(), array_filter([
-                        'projects' => $request->user()->projects,
+                        'tools' => $request->user()->tools,
                     ]));
                 }
             ],
+
+            'cache' => [
+                'featured_categories' => fn () => Category::where('is_featured', true)->orderBy('name', 'asc')->get(),
+            ],
+
             'flash' => $request->session()->get('flash', []),
             'env' => config('app.env'),
             'locale' => app()->getLocale(),

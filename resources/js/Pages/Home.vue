@@ -1,15 +1,12 @@
 <script setup>
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, usePage } from "@inertiajs/vue3";
 import Layout from "@/Layouts/Master.vue";
 import ToolCard from "@/Components/Tool/Card.vue";
 
-const { tools, featuredCategories } = defineProps({
-    tools: {
-        type: Object,
-        required: true,
-    },
+const cache = usePage().props.cache;
 
-    featuredCategories: {
+const { tools } = defineProps({
+    tools: {
         type: Object,
         required: true,
     },
@@ -45,13 +42,13 @@ const { tools, featuredCategories } = defineProps({
                     class="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 sticky top-20"
                 >
                     <Link
-                        v-for="featuredCategory in featuredCategories"
-                        :key="featuredCategory.id"
-                        :href="route('categories.show', featuredCategory.slug)"
+                        v-for="featured_category in cache.featured_categories"
+                        :key="featured_category.id"
+                        :href="route('categories.show', featured_category.slug)"
                         class="p-4 bg-gray-100 rounded flex items-center space-x-2"
                     >
-                        <div>{{ featuredCategory.icon }}</div>
-                        <div>{{ featuredCategory.name }}</div>
+                        <div>{{ featured_category.icon }}</div>
+                        <div>{{ featured_category.name }}</div>
                     </Link>
                 </div>
             </div>

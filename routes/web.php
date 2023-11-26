@@ -11,13 +11,15 @@ use App\Http\Controllers\AccountController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::inertia('/about', 'About')->name('about');
+
 Route::get('/blog', [BlogController::class, 'home'])->name('blog.home');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     // tools
     Route::get('/tools', [ToolController::class, 'index'])->name('tools.index');

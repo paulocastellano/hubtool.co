@@ -11,10 +11,10 @@ const { tools } = defineProps({
 </script>
 
 <template>
-    <Head title="Your Products" />
+    <Head title="Your Tools" />
 
     <Layout>
-        <div>Your Products</div>
+        <div>Your Tools</div>
 
         <div>
             <div v-for="tool in tools" :key="tool.id">

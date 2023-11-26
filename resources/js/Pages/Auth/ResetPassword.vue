@@ -1,8 +1,8 @@
 <script setup>
-import Layout from "@/Layouts/Master.vue";
+import Layout from "@/Layouts/Auth.vue";
 import InputError from "@/Components/InputError.vue";
 import Label from "@/Components/Label.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import Button from "@/Components/Button.vue";
 import Input from "@/Components/Input.vue";
 import { Head, useForm } from "@inertiajs/vue3";
 
@@ -35,6 +35,21 @@ const submit = () => {
     <Layout>
         <Head title="Reset Password" />
 
+        <div class="mb-6">
+            <div class="flex justify-center">
+                <img
+                    src="https://changelogfy.com/images/changelogfy/logo-color.png"
+                    class="h-14"
+                />
+            </div>
+
+            <h1
+                class="mt-10 text-center text-2xl font-medium leading-9 tracking-tight text-gray-900"
+            >
+                New Password
+            </h1>
+        </div>
+
         <form @submit.prevent="submit">
             <div>
                 <Label for="email" value="Email" />
@@ -46,7 +61,8 @@ const submit = () => {
                     v-model="form.email"
                     required
                     autofocus
-                    autocomplete="username"
+                    readonly
+                    autocomplete="off"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
@@ -86,12 +102,15 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
+                <Button
+                    :class="{
+                        'btn-primary w-full': true,
+                        'opacity-25': form.processing,
+                    }"
                     :disabled="form.processing"
                 >
                     Reset Password
-                </PrimaryButton>
+                </Button>
             </div>
         </form>
     </Layout>
