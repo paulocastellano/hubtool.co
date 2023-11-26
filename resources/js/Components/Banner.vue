@@ -40,7 +40,7 @@ watch(message, async () => {
             >
                 <div
                     v-if="show"
-                    class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-gray-800 shadow-2xl ring-1 ring-transparent dark:ring-gray-700 ring-opacity-5"
+                    class="pointer-events-auto w-full max-w-sm overflow-hidden rounded bg-gray-800 shadow-2xl ring-1 ring-transparent dark:ring-gray-700 ring-opacity-5"
                 >
                     <div class="p-4">
                         <div class="flex items-start">
@@ -78,7 +78,7 @@ watch(message, async () => {
                                 <button
                                     type="button"
                                     @click="show = false"
-                                    class="inline-flex rounded-md bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    class="inline-flex rounded bg-transparent text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 >
                                     <span class="sr-only">Close</span>
                                     <IconX class="h-5 w-5" aria-hidden="true" />

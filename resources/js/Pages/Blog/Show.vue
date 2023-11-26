@@ -80,7 +80,7 @@ const formatDate = (date) => {
                         <div class="group relative">
                             <div
                                 v-html="blogPost.body"
-                                class="mt-5 text-sm leading-6 text-gray-600 prose prose-2xl min-w-full"
+                                class="mt-5 text-sm text-gray-600 prose prose-2xl min-w-full"
                             ></div>
                         </div>
                         <div

@@ -27,7 +27,7 @@ class ToolFactory extends Factory
             'slug' => Str::uuid(),
             'photo' => 'tools/placeholder.png',
             'website' => $this->faker->url,
-            'brief' => $this->faker->sentence,
+            'headline' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'pricing' => $this->faker->randomElement(['FREE', 'PAID', 'FREEMIUM']),
             'twitter' => $this->faker->url,
@@ -42,6 +42,7 @@ class ToolFactory extends Factory
             'status' => ToolStatus::STATUS_DRAFT,
             'submitted_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
             'published_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'queue_priority' => false,
         ];
     }
 
@@ -70,6 +71,13 @@ class ToolFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'status' => ToolStatus::STATUS_PUBLISHED
+        ]);
+    }
+
+    public function hasQueuePriority(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'queue_priority' => true
         ]);
     }
 }

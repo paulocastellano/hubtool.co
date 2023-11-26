@@ -1,16 +1,21 @@
 <template>
     <Header />
 
-    <main class="mx-auto sm:p-6 lg:p-8" :class="maxWidthClass">
+    <main class="mx-auto sm:p-6 lg:p-8 mt-[72px]" :class="maxWidthClass">
+        <div
+            v-if="$slots.header"
+            class="border-b border-gray-100 dark:border-gray-700 px-4 pt-4 sm:pt-0 pb-4 sm:px-0 sm:pb-8 mb-4 sm:mb-8"
+        >
+            <slot name="header"></slot>
+        </div>
         <slot />
     </main>
-    <Footer />
     <Banner />
 </template>
 
 <script setup>
 import Header from "./Header.vue";
-import Footer from "./Footer.vue";
+
 import Banner from "@/Components/Banner.vue";
 
 import { computed } from "vue";

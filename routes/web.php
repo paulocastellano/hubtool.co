@@ -8,9 +8,15 @@ use App\Http\Controllers\ToolController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\BillingController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsletter.store');
+Route::post('/newsletter/unsubscribe', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
 Route::inertia('/about', 'About')->name('about');
 
@@ -25,10 +31,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tools', [ToolController::class, 'index'])->name('tools.index');
     Route::get('/tools/create', [ToolController::class, 'create'])->name('tools.create');
     Route::post('/tools', [ToolController::class, 'store'])->name('tools.store');
-    Route::get('/tools/{slug}', [ToolController::class, 'show'])->name('tools.show')->withoutMiddleware('auth');
     Route::get('/tools/{id}/edit', [ToolController::class, 'edit'])->name('tools.edit');
-    Route::patch('/tools/{id}', [ToolController::class, 'update'])->name('tools.update');
+    Route::post('/tools/{id}', [ToolController::class, 'update'])->name('tools.update');
     Route::delete('/tools/{id}', [ToolController::class, 'destroy'])->name('tools.destroy');
+    Route::post('/tools/images', [ToolController::class, 'imageHandler'])->name('tools.image-handler');
+    Route::get('/tool-search', [ToolController::class, 'search'])->name('tools.search');
+
+    // billing
+    Route::get('/billing/{id}/skip-line', [BillingController::class, 'skipeLine'])->name('billing.skip-line');
+    Route::get('/billing/{id}/skip-line/success', [BillingController::class, 'skipeLineSuccess'])->name('billing.skip-line-success');
+    Route::get('/billing/portal', [BillingController::class, 'billingPortal'])->name('billing.portal');
 
     // medias
     Route::post("/medias", [MediaController::class, 'store']);
@@ -41,5 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/account', [AccountController::class, 'destroy'])->name('account.destroy');
     Route::delete('/account/photo', [AccountController::class, 'deletePhoto'])->name('account.photo.destroy');
 });
+
+Route::get('/{slug}', [ToolController::class, 'show'])->name('tools.show')->withoutMiddleware('auth');
 
 require __DIR__ . '/auth.php';

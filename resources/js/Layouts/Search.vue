@@ -1,8 +1,9 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
+import { router } from "@inertiajs/vue3";
 import hotkeys from "hotkeys-js";
 
-import { IconX, IconBell, IconSearch } from "@tabler/icons-vue";
+import { IconBell, IconSearch } from "@tabler/icons-vue";
 
 import {
     Combobox,
@@ -29,6 +30,7 @@ const items = [
 
 const show = ref(false);
 const query = ref("");
+const tools = ref([]);
 const filteredItems = computed(() =>
     query.value === ""
         ? []
@@ -39,8 +41,22 @@ const filteredItems = computed(() =>
           })
 );
 
+const search = _.debounce(() => {
+    axios
+        .get(route("tools.search", { q: query.value }))
+        .then((data) => {
+            tools.value = data.data;
+        })
+        .catch((error) => {
+            console.log(error);
+            // if (error.response.status === 422) {
+            //     alert(error.response.data.message);
+            // }
+        });
+}, 500);
+
 function onSelect(item) {
-    window.location = item.url;
+    router.visit(route("tools.show", item.slug));
 }
 const open = () => {
     show.value = true;
@@ -113,39 +129,32 @@ onMounted(() => {
                                     class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                                     placeholder="Search..."
                                     @change="query = $event.target.value"
+                                    @keyup="search"
                                 />
                             </div>
 
                             <ComboboxOptions
-                                v-if="filteredItems.length > 0"
+                                v-if="tools.length > 0"
                                 static
                                 class="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
                             >
                                 <ComboboxOption
-                                    v-for="item in filteredItems"
-                                    :key="item.id"
-                                    :value="item"
+                                    v-for="tool in tools"
+                                    :key="tool.id"
+                                    :value="tool"
                                     as="template"
                                     v-slot="{ active }"
                                 >
                                     <li
                                         :class="[
-                                            'flex cursor-default select-none rounded-xl p-3',
+                                            'flex select-none rounded p-3  cursor-pointer',
                                             active && 'bg-gray-100',
                                         ]"
                                     >
-                                        <div
-                                            :class="[
-                                                'flex h-10 w-10 flex-none items-center justify-center rounded-lg',
-                                                item.color,
-                                            ]"
-                                        >
-                                            <component
-                                                :is="item.icon"
-                                                class="h-6 w-6 text-white"
-                                                aria-hidden="true"
-                                            />
-                                        </div>
+                                        <img
+                                            class="flex h-10 w-10 flex-none items-center justify-center rounded"
+                                            :src="tool.photo_url"
+                                        />
                                         <div class="ml-4 flex-auto">
                                             <p
                                                 :class="[
@@ -155,7 +164,7 @@ onMounted(() => {
                                                         : 'text-gray-700',
                                                 ]"
                                             >
-                                                {{ item.name }}
+                                                {{ tool.name }}
                                             </p>
                                             <p
                                                 :class="[
@@ -165,7 +174,7 @@ onMounted(() => {
                                                         : 'text-gray-500',
                                                 ]"
                                             >
-                                                {{ item.description }}
+                                                {{ tool.headline }}
                                             </p>
                                         </div>
                                     </li>
@@ -173,9 +182,7 @@ onMounted(() => {
                             </ComboboxOptions>
 
                             <div
-                                v-if="
-                                    query !== '' && filteredItems.length === 0
-                                "
+                                v-if="query !== '' && tools.length === 0"
                                 class="px-6 py-14 text-center text-sm sm:px-14"
                             >
                                 <IconBell
@@ -187,8 +194,8 @@ onMounted(() => {
                                     No results found
                                 </p>
                                 <p class="mt-2 text-gray-500">
-                                    No components found for this search term.
-                                    Please try again.
+                                    No tools found for this search term. Please
+                                    try again.
                                 </p>
                             </div>
                         </Combobox>

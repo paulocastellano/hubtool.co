@@ -22,7 +22,7 @@ const formatDate = (date) => {
                     >
                         Launch Stack Blog
                     </h2>
-                    <p class="mt-2 text-lg leading-8 text-gray-600">
+                    <p class="mt-2 text-lg text-gray-600">
                         Learn how to grow your business with our expert advice.
                     </p>
                 </div>
@@ -57,7 +57,7 @@ const formatDate = (date) => {
                             </div>
                             <div class="group relative">
                                 <h3
-                                    class="mt-3 text-lg font-bold leading-6 text-gray-900 group-hover:text-gray-600"
+                                    class="mt-3 text-lg font-bold text-gray-900 group-hover:text-gray-600"
                                 >
                                     <Link
                                         :href="
@@ -70,7 +70,7 @@ const formatDate = (date) => {
                                 </h3>
                                 <div
                                     v-html="blogPost.body"
-                                    class="mt-5 text-sm leading-6 text-gray-600 line-clamp-2 prose"
+                                    class="mt-5 text-sm text-gray-600 line-clamp-2 prose"
                                 ></div>
                             </div>
                             <div

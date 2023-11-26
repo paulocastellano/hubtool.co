@@ -30,7 +30,7 @@ class Tool extends Model implements HasMedia
         'slug',
         'photo',
         'website',
-        'brief',
+        'headline',
         'description',
         'twitter',
         'facebook',
@@ -48,7 +48,9 @@ class Tool extends Model implements HasMedia
     protected $casts = [
         'status' => ToolStatus::class,
         'pricing' => ToolPricing::class,
+        'published_at' => 'datetime',
         'submitted_at' => 'datetime',
+
     ];
 
     /**
@@ -59,11 +61,26 @@ class Tool extends Model implements HasMedia
     protected $appends = [
         'photo_url',
         'medias',
+        'days_to_review'
     ];
 
     public function getPhotoUrlAttribute()
     {
         return $this->photo ? Storage::url($this->photo) : 'https://ui-avatars.com/api/?length=1&name=' . urlencode($this->name) . '&color=FFFFFF&background=27272a';
+    }
+
+    // calculate the number of days to be reviewed
+    public function getDaysToReviewAttribute()
+    {
+        if($this->queue_priority) {
+            return 'Will be reviewed within 24 hours';
+        }
+
+        // get all tools that are pending and not have queue priority
+        $tools = Tool::where('status', ToolStatus::STATUS_PENDING)->where('queue_priority', false)->orderBy('submitted_at', 'asc')->get();
+        $position = array_search($this->id, $tools->map->id->toArray());
+
+        return "$position waiting in line";
     }
 
     public function getMediasAttribute()

@@ -17,7 +17,7 @@ defineProps({
 <template>
     <Head title="Account" />
 
-    <AppLayout>
+    <AppLayout max-width="2xl">
         <template #header>
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">

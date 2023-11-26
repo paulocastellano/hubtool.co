@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link, usePage } from "@inertiajs/vue3";
+import helper from "@/helper";
 import Layout from "@/Layouts/Master.vue";
 import ToolCard from "@/Components/Tool/Card.vue";
 
@@ -19,17 +20,15 @@ const { tools } = defineProps({
     <Layout>
         <div class="grid grid-cols-1 sm:grid-cols-10 gap-8">
             <div class="col-span-6 p-6 order-2 sm:order-1">
-                <div class="mb-4">
-                    <h2 class="max-w-sm text-2xl font-semibold">
-                        Featured Tools
-                    </h2>
-                </div>
-
                 <div class="flex flex-col space-y-4 relative mt-8">
                     <div v-for="(all, day) in tools" :key="day">
-                        <div class="mb-4">{{ day }}</div>
-                        <div v-for="tool in all" :key="tool.id">
-                            <ToolCard :tool="tool" />
+                        <div class="mb-4 text-lg font-semibold">
+                            {{ helper.formatDate(day) }}
+                        </div>
+                        <div class="space-y-1">
+                            <div v-for="tool in all" :key="tool.id">
+                                <ToolCard :tool="tool" />
+                            </div>
                         </div>
                     </div>
                 </div>

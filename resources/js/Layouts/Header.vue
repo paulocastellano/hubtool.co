@@ -45,8 +45,6 @@ const navigation = [
             href: route("categories.show", category.slug),
         })),
     },
-    { name: "Blog", href: route("blog.home") },
-    { name: "About", href: route("about") },
 ];
 
 const userNavigation = [
@@ -56,7 +54,9 @@ const userNavigation = [
 </script>
 
 <template>
-    <header class="sticky top-0 bg-white sm:border-b border-gray-100 z-10">
+    <header
+        class="fixed w-full top-0 bg-white sm:border-b border-gray-100 z-10"
+    >
         <nav
             class="mx-auto flex max-w-full items-center justify-between gap-x-6 py-4 px-6 lg:px-8"
         >
@@ -73,7 +73,7 @@ const userNavigation = [
                 <div class="hidden lg:flex items-center lg:gap-x-8">
                     <div class="relative flex-1">
                         <div
-                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center"
                         >
                             <IconSearch class="h-5 w-5 text-gray-400" />
                         </div>
@@ -82,13 +82,17 @@ const userNavigation = [
                             autocomplete="off"
                             type="text"
                             placeholder="Search..."
-                            @click="search.open()"
                         />
                         <div
                             class="absolute inset-y-0 right-0 flex py-1.5 pr-1.5"
                         >
                             <kbd class="kbd-search">⌘K</kbd>
                         </div>
+
+                        <div
+                            class="absolute inset-0 z-10 bg-transparent cursor-pointer"
+                            @click="search.open()"
+                        ></div>
                     </div>
 
                     <Link
@@ -196,7 +200,10 @@ const userNavigation = [
                                         method="post"
                                         as="button"
                                         type="button"
-                                        class="w-full block text-left px-4 py-2 text-sm text-gray-700 bg-gray-100 cursor-pointer"
+                                        :class="[
+                                            active ? 'bg-gray-100' : '',
+                                            'block text-left px-4 py-2 text-sm text-gray-700 w-full',
+                                        ]"
                                     >
                                         <div>Sign Out</div>
                                     </Link>
@@ -272,7 +279,7 @@ const userNavigation = [
                                 v-for="item in navigation"
                                 :key="item.name"
                                 :href="item.href"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50"
                             >
                                 {{ item.name }}
                             </Link>
@@ -280,7 +287,7 @@ const userNavigation = [
                         <div class="py-6">
                             <Link
                                 :href="route('login')"
-                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold text-gray-900 hover:bg-gray-50"
                             >
                                 Log in
                             </Link>

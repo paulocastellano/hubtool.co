@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('photo')->nullable();
             $table->string('website')->nullable();
-            $table->string('brief')->nullable();
+            $table->string('headline')->nullable();
             $table->longText('description')->nullable();
 
             $table->string('status');
             $table->string('pricing');
+            $table->boolean('queue_priority')->default(false);
 
             $table->string('twitter')->nullable();
             $table->string('facebook')->nullable();

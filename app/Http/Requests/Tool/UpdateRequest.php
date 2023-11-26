@@ -8,9 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use App\Enums\Tool\Pricing as ToolPricing;
 
-use App\Models\Tool;
-
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -21,7 +19,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'photo' => ['required', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
+            'photo' => ['nullable', 'mimes:jpg,jpeg,png,svg', 'max:2048'],
             'website' => ['required', 'string', 'max:255', 'url'],
             'headline' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:5000'],
