@@ -11,6 +11,8 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\BillingController;
 
+require __DIR__ . '/auth.php';
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -55,5 +57,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/{slug}', [ToolController::class, 'show'])->name('tools.show')->withoutMiddleware('auth');
-
-require __DIR__ . '/auth.php';
