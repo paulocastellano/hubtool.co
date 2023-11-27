@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import { usePage, Link } from "@inertiajs/vue3";
 
 import {
@@ -23,6 +23,7 @@ import {
 
 import Search from "./Search.vue";
 import Input from "@/Components/Input.vue";
+import { onBeforeMount } from "vue";
 
 const search = ref(null);
 const cache = usePage().props.cache;
@@ -30,27 +31,35 @@ const user = usePage().props.auth.user;
 
 const mobileMenuOpen = ref(false);
 
-const navigation = [
-    {
-        name: "Home",
-        href: route("home"),
-        current: route().current("home"),
-    },
+const navigation = reactive([]);
 
-    {
-        name: "Explore",
-        href: "#",
-        items: cache.featured_categories.map((category) => ({
-            name: category.name,
-            href: route("categories.show", category.slug),
-        })),
-    },
-];
+const userNavigation = reactive([]);
 
-const userNavigation = [
-    { name: "Your Profile", href: route("account.edit") },
-    { name: "Your Tools", href: route("tools.index") },
-];
+onBeforeMount(() => {
+    navigation.push(
+        {
+            name: "Home",
+            href: route("home"),
+            current: route().current("home"),
+        },
+        {
+            name: "Explore",
+            href: "#",
+            items: cache.featured_categories.map((category) => ({
+                name: category.name,
+                href: route("categories.show", category.slug),
+            })),
+        }
+    );
+
+    userNavigation.push(
+        {
+            name: "Account",
+            href: route("account.edit"),
+        },
+        { name: "Your Tools", href: route("tools.index") }
+    );
+});
 </script>
 
 <template>

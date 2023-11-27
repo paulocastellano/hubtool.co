@@ -2,6 +2,7 @@
 import { computed, ref, onMounted } from "vue";
 import { router } from "@inertiajs/vue3";
 import hotkeys from "hotkeys-js";
+import debounce from "@/debounce";
 
 import { IconBell, IconSearch } from "@tabler/icons-vue";
 
@@ -16,32 +17,11 @@ import {
     TransitionRoot,
 } from "@headlessui/vue";
 
-const items = [
-    {
-        id: 1,
-        name: "Text",
-        description: "Add freeform text with basic formatting options.",
-        url: "#",
-        color: "bg-indigo-500",
-        icon: IconBell,
-    },
-    // More items...
-];
-
 const show = ref(false);
 const query = ref("");
 const tools = ref([]);
-const filteredItems = computed(() =>
-    query.value === ""
-        ? []
-        : items.filter((item) => {
-              return item.name
-                  .toLowerCase()
-                  .includes(query.value.toLowerCase());
-          })
-);
 
-const search = _.debounce(() => {
+const search = debounce(() => {
     axios
         .get(route("tools.search", { q: query.value }))
         .then((data) => {
@@ -49,9 +29,6 @@ const search = _.debounce(() => {
         })
         .catch((error) => {
             console.log(error);
-            // if (error.response.status === 422) {
-            //     alert(error.response.data.message);
-            // }
         });
 }, 500);
 

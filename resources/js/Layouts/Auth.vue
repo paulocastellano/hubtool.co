@@ -2,7 +2,7 @@
     <Header />
 
     <main
-        class="flex min-h-full flex-1 flex-col justify-center px-6 lg:py-12 lg:px-8 -mt-20"
+        class="flex min-h-full flex-1 flex-col justify-center px-6 lg:py-12 lg:px-8"
     >
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <slot />

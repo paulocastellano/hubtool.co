@@ -1,10 +1,11 @@
+import dayjs from "dayjs";
+
 export default {
     kFormatter(num) {
         return Math.abs(num) > 999
             ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + "k"
             : Math.sign(num) * Math.abs(num);
     },
-
 
     formatDate(date) {
         return dayjs(date).format("MMM D, YYYY");
@@ -18,5 +19,5 @@ export default {
             navigator.clipboard;
 
         clipboardData.writeText(url);
-    }
+    },
 };

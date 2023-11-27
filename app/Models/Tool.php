@@ -43,6 +43,7 @@ class Tool extends Model implements HasMedia
         'google_store_link',
         'submitted_at',
         'published_at',
+        'queue_priority'
     ];
 
     protected $casts = [
@@ -78,7 +79,7 @@ class Tool extends Model implements HasMedia
 
         // get all tools that are pending and not have queue priority
         $tools = Tool::where('status', ToolStatus::STATUS_PENDING)->where('queue_priority', false)->orderBy('submitted_at', 'asc')->get();
-        $position = array_search($this->id, $tools->map->id->toArray());
+        $position = array_search($this->id, $tools->map->id->toArray()) + 50;
 
         return "$position waiting in line";
     }
