@@ -16,7 +16,7 @@ class BillingController extends Controller
 
     public function skipeLine($toolId, Request $request)
     {
-        return $request->user()->checkout([env('STRIPE_PRICE_SKIP_LINE') => 1], [
+        return $request->user()->checkout([config('services.stripe.price_skip_line') => 1], [
             'success_url' => route('billing.skip-line-success', $toolId),
             'cancel_url' => route('tools.index'),
         ]);

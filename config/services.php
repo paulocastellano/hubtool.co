@@ -31,4 +31,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'stripe' => [
+        'price_skip_line' => env('STRIPE_PRICE_SKIP_LINE'),
+    ]
 ];
